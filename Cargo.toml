@@ -1,0 +1,6 @@
+[package]
+name = "clipboard"
+version = "0.1.0"
+authors = ["Mok Ka Chun <mkc188@users.noreply.github.com>"]
+
+[dependencies]
