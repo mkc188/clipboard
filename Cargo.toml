@@ -5,3 +5,6 @@ authors = ["Mok Ka Chun <mkc188@users.noreply.github.com>"]
 
 [dependencies]
 iron = "0.5.*"
+diesel = { version = "0.13.0", features = ["mysql"] }
+diesel_codegen = { version = "0.13.0", features = ["mysql"] }
+dotenv = "0.9.0"
