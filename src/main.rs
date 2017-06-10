@@ -37,7 +37,7 @@ fn main() {
         };
         // println!("{}", markup.into_string());
 
-        Ok(Response::with((status::Ok, markup.into_string())))
+        Ok(Response::with((status::Ok, markup)))
     }
 
     let _server = Iron::new(hello_world).http("0.0.0.0:3000").unwrap();
