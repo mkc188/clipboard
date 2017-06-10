@@ -3,39 +3,48 @@
 
 extern crate iron;
 extern crate clipboard;
-extern crate diesel;
+#[macro_use] extern crate diesel;
+#[macro_use] extern crate diesel_codegen;
 extern crate maud;
+extern crate r2d2;
+extern crate r2d2_diesel;
+extern crate dotenv;
+
+mod db;
+pub mod schema;
+pub mod models;
 
 use clipboard::*;
 use self::models::*;
 use diesel::prelude::*;
+use diesel::mysql::MysqlConnection;
+use r2d2_diesel::ConnectionManager;
+use dotenv::dotenv;
+use std::env;
 
 use iron::prelude::*;
 use iron::status;
 use std::io;
+use db::Db;
 
 fn main() {
+    dotenv().ok();
+    
+    let db = Db::new();
+    let db_connection_pool = db.get_pool();
+    
     use self::schema::tunnels::dsl::*;
 
     fn hello_world(_: &mut Request) -> IronResult<Response> {
-        let connection = establish_connection();
         let results = tunnels.filter(created_time.eq(0))
             .limit(5)
             .load::<Tunnel>(&connection)
             .expect("Error loading tunnels");
     
-        println!("Displaying {} tunnels", results.len());
-        for tunnel in results {
-            println!("{}", tunnel.mobile_id);
-            println!("-----------\n");
-            println!("{}", tunnel.computer_id);
-        }
-
         let name = "Lyra";
         let markup = html! {
             p { "Hi, " (name) "!" }
         };
-        // println!("{}", markup.into_string());
 
         Ok(Response::with((status::Ok, markup)))
     }
