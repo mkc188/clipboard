@@ -1,6 +1,10 @@
 use iron::prelude::*;
 use iron::status;
 
-pub fn handler(_req: &mut Request) -> IronResult<Response> {
-    Ok(Response::with((status::Ok, "This is a test")))
+use views;
+use models::tunnel::Tunnel;
+
+pub fn handler(req: &mut Request) -> IronResult<Response> {
+    let resp = Response::with((status::Ok, views::shared::root().unwrap()));
+    Ok(resp)
 }

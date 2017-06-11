@@ -24,6 +24,7 @@ use dotenv::dotenv;
 
 mod database;
 mod controllers;
+mod views;
 mod models;
 
 fn main() {
