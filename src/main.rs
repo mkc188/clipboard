@@ -2,6 +2,7 @@
 #![plugin(maud_macros)]
 
 extern crate iron;
+extern crate router;
 extern crate clipboard;
 #[macro_use] extern crate diesel;
 #[macro_use] extern crate diesel_codegen;
@@ -24,6 +25,7 @@ use std::env;
 
 use iron::prelude::*;
 use iron::status;
+use router::Router;
 use std::io;
 use db::Db;
 
